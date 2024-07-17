@@ -4,7 +4,7 @@ import asyncio
 import logging
 
 from src.bot.handlers import router
-from src.config.bot_entity import bot, dp, scheduler, MyBot
+from src.config.bot_entity import bot, dp, MyBot, scheduler
 from src.database.engine import create_db, drop_db, async_session
 from src.middlewares.SchedulerMiddlewares import SchedulerMiddleware
 from src.middlewares.ShadowBanMiddleware import ShadowBanMiddleware

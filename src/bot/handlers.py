@@ -35,6 +35,13 @@ async def cmd_help(message: Message):
     await message.answer(txt.help_message)
 
 
+@router.message(Command('nothing_is_working'))
+async def cmd_nothing_is_working(message: Message):
+    '''Команда получения информационного сообщения с инструкцией по использованию бота'''
+
+    await message.answer(txt.nothing_is_working)
+
+
 @router.message(Command('bot_on'))
 async def cmd_bot_on(message: Message, scheduler: AsyncIOScheduler, session: AsyncSession) -> None:
     '''Команда включения бота для обработки данного чата'''
@@ -42,7 +49,6 @@ async def cmd_bot_on(message: Message, scheduler: AsyncIOScheduler, session: Asy
     try:
         await rq.set_chat_on(message.chat.id, session)
         await sh.daily_reminder_set(message.chat.id, scheduler, session)
-
         await message.answer(txt.bot_on)
 
     except MyException as err:

@@ -1,14 +1,18 @@
 """Файл со всеми сущностями, необходимыми для формирования фундамента бота"""
 
 import logging
+
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
+
+from apscheduler.executors.asyncio import AsyncIOExecutor
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from src.config.config import Config
 from src.admin.tgClient import TelegramClient
 
-
+# Настройка сущности бота
 class MyBot(Bot):
     '''Класс-обёртка над ботом aiogram для присвоения ему новых полей'''
     def __init__(self, tg_client: TelegramClient, token: str, **kwargs):
@@ -21,8 +25,14 @@ bot = MyBot(tg_client=tg_client, token=Config.bot_token, default=DefaultBotPrope
 
 dp = Dispatcher()
 
+
+
+# Настройка планировщика
 scheduler = AsyncIOScheduler()
 scheduler.configure(timezone="Europe/Moscow")
 
+
+
+# Настройка логгера
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='reminder_bot.log', filemode='w', level=logging.INFO)

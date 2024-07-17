@@ -20,7 +20,7 @@ class ShadowBanMiddleware(BaseMiddleware):
             command: str = event.dict()['message']['text']
 
             if command:
-                if command.startswith('/bot') or command.startswith('/start'):
+                if command.startswith('/bot') or command.startswith('/start') or command.startswith('/help'):
                     return await handler(event, data)
 
                 chat: Chat = data.get('event_chat')

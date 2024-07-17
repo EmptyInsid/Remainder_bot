@@ -3,7 +3,7 @@
 from datetime import timedelta, datetime
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from apscheduler.jobstores.base import JobLookupError
+from apscheduler.jobstores.base import JobLookupError, ConflictingIdError
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from src.database.models import Task
@@ -45,12 +45,15 @@ async def daily_reminder_set(chat_id: int, scheduler: AsyncIOScheduler, session:
     :param scheduler: планировщик бота
     :param chat_id: id чата, куда будет отправлен списка задач
     '''
-
-    scheduler.add_job(send_daily_plane,
-                      trigger='cron',
-                      hour='9',
-                      minute='00',
-                      args=[chat_id, session])
+    try:
+        scheduler.add_job(send_daily_plane,
+                          trigger='cron',
+                          hour='9',
+                          minute='00',
+                          args=[chat_id, session],
+                          id='chat_'+str(chat_id))
+    except (JobLookupError, ConflictingIdError):
+        return
 
 
 async def remove_job(task_id: str, scheduler: AsyncIOScheduler) -> None:
@@ -63,6 +66,20 @@ async def remove_job(task_id: str, scheduler: AsyncIOScheduler) -> None:
 
     try:
         scheduler.remove_job(str(task_id).strip())
+    except JobLookupError:
+        return
+
+
+async def remove_daily_job(chat_id: str, scheduler: AsyncIOScheduler) -> None:
+    '''
+    Удаление ежедневной задачи из планировщика после выполнения
+
+    :param scheduler: планировщик бота
+    :param chat_id: id чата для удаления
+    '''
+
+    try:
+        scheduler.remove_job('chat_' + str(chat_id).strip())
     except JobLookupError:
         return
 
@@ -119,12 +136,11 @@ async def send_daily_plane(chat_id: int, session: AsyncSession) -> None:
     :param chat_id: id чата для отправки
     :param session: сессия бд бота
     '''
-
-    tasks = await rq.get_all_tasks(chat_id, session)
-
-    response = utils.make_beautiful_remainder_list(tasks)
-
-    await bot.send_message(chat_id, f'{txt.daily_plane_message}\n\n{response}')
+    is_chat_on = await rq.get_is_chat_on(chat_id, session)
+    if is_chat_on:
+        tasks = await rq.get_all_tasks(chat_id, session)
+        response = utils.make_beautiful_remainder_list(tasks)
+        await bot.send_message(chat_id, f'{txt.daily_plane_message}\n\n{response}')
 
 
 def _timer(deadline: str) -> str:
