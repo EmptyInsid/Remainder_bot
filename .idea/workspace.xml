@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cdc9ab3-ac16-4f53-8967-4077a82c7675" name="Changes" comment="upd_finally">
+    <list default="true" id="7cdc9ab3-ac16-4f53-8967-4077a82c7675" name="Changes" comment="little changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middlewares/ShadowBanMiddleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/ShadowBanMiddleware.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/texts/botMessages.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/texts/botMessages.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +54,7 @@
     &quot;Python.utils.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/iriSoft/ReminderBot/src/bot.py&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/iriSoft/ReminderBot&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
 }</component>
@@ -205,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721296021374</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="little changes">
+      <option name="closed" value="true" />
+      <created>1721374934410</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1721374934410</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,6 +230,7 @@
     <MESSAGE value="first_commit" />
     <MESSAGE value="upd" />
     <MESSAGE value="upd_finally" />
-    <option name="LAST_COMMIT_MESSAGE" value="upd_finally" />
+    <MESSAGE value="little changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="little changes" />
   </component>
 </project>
